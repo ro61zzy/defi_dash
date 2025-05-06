@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 interface TokenCardProps {
+  id: string;
   name: string;
   image: string;
   symbol: string;
@@ -12,33 +13,45 @@ interface TokenCardProps {
 }
 
 export const TokenCard = ({
+  id,
   name,
   image,
   symbol,
   price,
   priceChange,
 }: TokenCardProps) => {
+  const isPositive = priceChange >= 0;
+
   return (
-    <Link href={`/token/${symbol.toLowerCase()}`}>
-    <motion.div
-      className="bg-gray-900 p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
-    >
-      <div className="flex items-center gap-4">
-        <img src={image} alt={name} className="w-10 h-10" />
-        <div>
-          <h2 className="text-lg font-bold">{name} <span className="text-sm text-gray-400 uppercase">({symbol})</span></h2>
-          <p className="text-green-400">${price.toFixed(2)}</p>
-          <p className={priceChange >= 0 ? "text-green-500" : "text-red-500"}>
-            {priceChange >= 0 ? "+" : ""}
-            {priceChange.toFixed(2)}%
-          </p>
+    <Link href={`/token/${id}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3 }}
+        whileHover={{
+          scale: 1.05,
+          y: -4,
+          boxShadow: "0px 12px 20px rgba(0,0,0,0.25)",
+        }}
+        className="bg-gradient-to-br from-gray-900/80 to-gray-800/90 border border-gray-700 rounded-xl p-4 backdrop-blur-md shadow-md cursor-pointer"
+      >
+        <div className="flex items-center gap-4">
+          <img src={image} alt={name} className="w-9 h-9 rounded-full" />
+          <div className="text-sm">
+            <h2 className="font-semibold text-white">{name}</h2>
+            <p className="text-gray-400 text-xs uppercase">{symbol}</p>
+            <p className="text-white text-sm">${price.toFixed(2)}</p>
+            <p
+              className={`text-xs ${
+                isPositive ? "text-green-400" : "text-red-400"
+              }`}
+            >
+              {isPositive ? "▲" : "▼"} {priceChange.toFixed(2)}%
+            </p>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
     </Link>
   );
 };

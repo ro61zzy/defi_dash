@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@shadcn/ui": "^0.0.4",
     "axios": "^1.9.0",
     "chart.js": "^4.4.9",
     "framer-motion": "^12.10.0",
