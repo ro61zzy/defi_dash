@@ -16,3 +16,21 @@ export const fetchTopTokens = async () => {
 
   return res.data;
 };
+
+export const fetchTokenDetails = async (id: string) => {
+  const res = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}`);
+  return res.data;
+};
+
+export const fetchTokenChart = async (id: string) => {
+  const res = await axios.get(
+    `https://api.coingecko.com/api/v3/coins/${id}/market_chart`,
+    {
+      params: {
+        vs_currency: "usd",
+        days: 7,
+      },
+    }
+  );
+  return res.data;
+};

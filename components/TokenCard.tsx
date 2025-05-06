@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 interface TokenCardProps {
@@ -18,6 +19,7 @@ export const TokenCard = ({
   priceChange,
 }: TokenCardProps) => {
   return (
+    <Link href={`/token/${symbol.toLowerCase()}`}>
     <motion.div
       className="bg-gray-900 p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
       initial={{ opacity: 0, y: 40 }}
@@ -37,5 +39,6 @@ export const TokenCard = ({
         </div>
       </div>
     </motion.div>
+    </Link>
   );
 };
